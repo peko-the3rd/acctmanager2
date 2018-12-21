@@ -30,8 +30,6 @@ public class AccountListActivity extends AppCompatActivity implements AdapterVie
     static SQLiteDatabase db;
     private List<Map<String, String>> listData = new ArrayList<>();
 
-    static List<String> names = new ArrayList<String>();
-    static List<Bitmap> icons = new ArrayList<Bitmap>();
     static ArrayAdapter<String> adapter;
     private AccountListActivityPresenter listPresenter;
     ListView listView;
@@ -64,7 +62,7 @@ public class AccountListActivity extends AppCompatActivity implements AdapterVie
     }
     @Override
     public void onRestart(){
-        super.onRestart();
+        //super.onRestart();
         Log.v("LifeCycle", "onRestart");
         reload();
     }
@@ -80,7 +78,7 @@ public class AccountListActivity extends AppCompatActivity implements AdapterVie
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_account_list, menu);
+        getMenuInflater().inflate(R.menu.menu_list, menu);
         return true;
     }
 
@@ -98,6 +96,7 @@ public class AccountListActivity extends AppCompatActivity implements AdapterVie
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
         Log.d("","--------------------a---------------------");
@@ -134,7 +133,7 @@ public class AccountListActivity extends AppCompatActivity implements AdapterVie
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(getApplicationContext(), AccountEntryActivity.class);
-
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             // clickされたpositionのtextとphotoのID
             // SubActivityへ遷移
             startActivity(intent);
@@ -148,6 +147,7 @@ public class AccountListActivity extends AppCompatActivity implements AdapterVie
 
             Intent intent = new Intent(
                     view.getContext(), AccountEditActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
             // 選択されたビューを取得
             ConstraintLayout linear = (ConstraintLayout)view;
@@ -165,6 +165,7 @@ public class AccountListActivity extends AppCompatActivity implements AdapterVie
                     lv.setEnabled(false);
                 }
             }, 10);
+
             // SubActivityへ遷移
             startActivity(intent);
 
@@ -172,4 +173,15 @@ public class AccountListActivity extends AppCompatActivity implements AdapterVie
         }
     };
 
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.v("LifeCycle", "onDestroy");
+
+        listData = null;
+        adapter = null;
+        listPresenter = null;
+        listView = null;
+        db = null;
+    }
 }

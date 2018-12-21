@@ -1,7 +1,10 @@
 package jp.thesaurus.accountmanager;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -29,7 +32,12 @@ public class AccountEntryActivity extends AppCompatActivity {
         findViewById(R.id.entry_button).setOnClickListener(entryClickListener);
         findViewById(R.id.entry_finish_button).setOnClickListener(finishClickListener);
     }
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        //getMenuInflater().inflate(R.menu.menu_list, menu);
+        return true;
+    }
     /**
      * 登録ボタン
      */
@@ -79,7 +87,18 @@ public class AccountEntryActivity extends AppCompatActivity {
     View.OnClickListener finishClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            AccountEntryActivity.this.finish();
+            Intent intent = new Intent(getApplicationContext(), AccountListActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+           // AccountEntryActivity.this.finish();
         }
     };
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.v("LifeCycle", "onDestroy");
+
+        entryPresenter = null;
+    }
 }

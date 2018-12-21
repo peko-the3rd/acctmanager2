@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ public class AccountEditActivity extends AppCompatActivity {
 
     private AccountEditActivityPresenter editPresenter;
     private Map<String, String> editData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +46,13 @@ public class AccountEditActivity extends AppCompatActivity {
         findViewById(R.id.finish_button).setOnClickListener(finishClickListener);
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_edit, menu);
+        return true;
     }
 
     /**
@@ -208,7 +218,19 @@ public class AccountEditActivity extends AppCompatActivity {
     View.OnClickListener finishClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            AccountEditActivity.this.finish();
+            Intent intent = new Intent(AccountEditActivity.this, AccountListActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            //AccountEditActivity.this.finish();
         }
     };
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.v("LifeCycle", "onDestroy");
+
+        editPresenter = null;
+        editData = null;
+    }
 }

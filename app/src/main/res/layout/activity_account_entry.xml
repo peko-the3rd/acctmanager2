@@ -82,6 +82,7 @@
         app:layout_constraintTop_toBottomOf="@+id/entry_layout">
         <Button
             android:id="@+id/entry_button"
+            android:theme="@style/UpsertButton"
             android:layout_width="108dp"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/entry_password"
@@ -89,6 +90,7 @@
             android:text="登録" />
         <Button
             android:id="@+id/entry_finish_button"
+            android:theme="@style/finishButton"
             android:layout_width="108dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"

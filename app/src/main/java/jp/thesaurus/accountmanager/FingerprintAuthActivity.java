@@ -18,6 +18,7 @@ public class FingerprintAuthActivity extends AppCompatActivity {
     TextView errorTextView;
     ImageView fingerprintImageView;
     Animation shake;
+    com.airbnb.lottie.LottieAnimationView fpaView;
     //private AlertDialog.Builder builder;
     //private Dialog mDialog;
     //private CancellationSignal mCancellationSignal;
@@ -83,17 +84,33 @@ public class FingerprintAuthActivity extends AppCompatActivity {
                             @Override
                             public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
                                 //mDialog.dismiss();
+
+                                fpaView = findViewById(R.id.fingerprint_animation);
+                                fpaView.setRepeatCount(0);
+                                //fpaView.cancelAnimation();
                                 errorTextView = findViewById(R.id.title_text_view);
                                 errorTextView.setText("認証OK");
                                 errorTextView.setTextColor(Color.parseColor("#00A95F"));
                                 Intent intent = new Intent(FingerprintAuthActivity.this, AccountListActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
-                                finish();
+                                //finish();
                             }
                         }, null);
             }
         } catch (SecurityException secEx) {
             secEx.printStackTrace();
         }
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.v("LifeCycle", "onDestroy");
+
+        errorTextView = null;
+        fingerprintImageView = null;
+        shake = null;
+        fpaView = null;
     }
 }
