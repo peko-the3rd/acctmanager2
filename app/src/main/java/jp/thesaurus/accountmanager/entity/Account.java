@@ -15,21 +15,26 @@ public class Account {
     @NonNull
     private String password;
     @NonNull
+    private String subServiceName;
+    @NonNull
     private String remarks;
 
     public Account() {
     }
-    public Account(String sIndex, String userId, String password, String remarks) {
+    public Account(String sIndex, String userId, String password, String subServiceName, String remarks) {
         this.sIndex = sIndex;
         this.userId = userId;
         this.password = password;
+        this.subServiceName = subServiceName;
         this.remarks = remarks;
     }
-    public Account(String uid,String sIndex, String userId, String password, String remarks) {
+
+    public Account(String uid,String sIndex, String userId, String password,String subServiceName ,String remarks) {
         this.uid = uid;
         this.sIndex = sIndex;
         this.userId = userId;
         this.password = password;
+        this.subServiceName = subServiceName;
         this.remarks = remarks;
     }
 
@@ -63,6 +68,14 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getSubServiceName() {
+        return subServiceName;
+    }
+
+    public void setSubServiceName(String subServiceName) {
+        this.subServiceName = subServiceName;
     }
 
     public String getRemarks() {

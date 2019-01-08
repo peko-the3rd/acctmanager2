@@ -72,6 +72,10 @@ public class AccountEditActivity extends AppCompatActivity {
         passwordView.setText(editData.get("password"));
         passwordView.setEnabled(false);
 
+        TextView subServiceNameView = findViewById(R.id.edit_sub_service_name);
+        subServiceNameView.setText(editData.get("sub_service_name"));
+        subServiceNameView.setEnabled(false);
+
         TextView remarksView = findViewById(R.id.edit_remarks);
         remarksView.setText(editData.get("remarks"));
         remarksView.setEnabled(false);
@@ -110,6 +114,9 @@ public class AccountEditActivity extends AppCompatActivity {
         passwordView.setText(refreshData.get("password"));
 
 
+        TextView subServiceNameView = findViewById(R.id.edit_sub_service_name);
+        subServiceNameView.setText(refreshData.get("sub_service_name"));
+
         TextView remarksView = findViewById(R.id.edit_remarks);
         remarksView.setText(refreshData.get("remarks"));
 
@@ -136,6 +143,7 @@ public class AccountEditActivity extends AppCompatActivity {
             ViewUtil vu = new ViewUtil();
             TextView editUserIdView = findViewById(R.id.edit_user_id);
             TextView passwordView = findViewById(R.id.edit_password);
+            TextView subServiceNameView = findViewById(R.id.edit_sub_service_name);
             TextView remarksView = findViewById(R.id.edit_remarks);
             TextView updateButtonView = findViewById(R.id.update_button);
             TextView deleteButtonView = findViewById(R.id.delete_button);
@@ -143,6 +151,7 @@ public class AccountEditActivity extends AppCompatActivity {
 
             editUserIdView.setEnabled(vu.changeAble(editUserIdView.isEnabled()));
             passwordView.setEnabled(vu.changeAble(passwordView.isEnabled()));
+            subServiceNameView.setEnabled(vu.changeAble(subServiceNameView.isEnabled()));
             remarksView.setEnabled(vu.changeAble(remarksView.isEnabled()));
             //passwordView.setFocusableInTouchMode(true);
             //remarksView.setFocusableInTouchMode(true);
@@ -193,6 +202,7 @@ public class AccountEditActivity extends AppCompatActivity {
             TextView editUserIdView = findViewById(R.id.edit_user_id);
             TextView passwordView   = findViewById(R.id.edit_password);
             TextView sindexView     = findViewById(R.id.s_index);
+            TextView subServiceNameView = findViewById(R.id.edit_sub_service_name);
             TextView remarksView    = findViewById(R.id.edit_remarks);
 
             Account account = new Account();
@@ -200,6 +210,7 @@ public class AccountEditActivity extends AppCompatActivity {
             account.setUserId(editUserIdView.getText().toString());
             account.setPassword(passwordView.getText().toString());
             account.setSIndex(sindexView.getText().toString());
+            account.setSubServiceName(subServiceNameView.getText().toString());
             account.setRemarks(remarksView.getText().toString());
 
             editPresenter = new AccountEditActivityPresenter(account);

@@ -26,13 +26,13 @@ public class ListAdapter extends BaseAdapter {
     private List<String> displayUidList = new ArrayList<>();
     private List<String> displayNameList = new ArrayList<>();
     private List<Bitmap> displayImageList = new ArrayList<>();
-    private List<String> displayMemoList = new ArrayList<>();
+    private List<String> displaySubServiceNameList = new ArrayList<>();
 
     static class ViewHolder {
         TextView uid;
         TextView name;
         ImageView image;
-        TextView memo;
+        TextView subServiceName;
     }
 
     public ListAdapter(Context context, int itemLayoutId, Resources res, List<Map<String, String>> listData ){
@@ -52,11 +52,11 @@ public class ListAdapter extends BaseAdapter {
                 if(entry.getKey().equals("service_index")){
                     displayImageList.add(ViewUtil.getServiceBitmap(entry.getValue(),res));
                 }
-                if(entry.getKey().equals("remarks")){
+                if(entry.getKey().equals("sub_service_name")){
                     if(entry.getValue().isEmpty() || entry.getValue() == null){
-                        displayMemoList.add("");
+                        displaySubServiceNameList.add("");
                     }else{
-                        displayMemoList.add(entry.getValue());
+                        displaySubServiceNameList.add(entry.getValue());
                     }
                 }
             }
@@ -73,7 +73,7 @@ public class ListAdapter extends BaseAdapter {
             holder.uid = convertView.findViewById(R.id.row_uid_hidden);
             holder.name = convertView.findViewById(R.id.row_mail_text);
             holder.image = convertView.findViewById(R.id.row_img_item);
-            holder.memo = convertView.findViewById(R.id.row_memo);
+            holder.subServiceName = convertView.findViewById(R.id.row_sub_service_name);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -84,8 +84,8 @@ public class ListAdapter extends BaseAdapter {
         holder.name.setText(name);
         holder.image.setImageBitmap(displayImageList.get(position));
 
-        String memo = displayMemoList.get(position).toString();
-        holder.memo.setText(memo);
+        String subServiceName = displaySubServiceNameList.get(position).toString();
+        holder.subServiceName.setText(subServiceName);
 
 
         return convertView;

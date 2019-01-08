@@ -68,6 +68,7 @@ public class AccountEditActivityPresenter {
         afterData.put("user_id",account.getUserId());
         afterData.put("password",account.getPassword());
         afterData.put("service_index",account.getSIndex());
+        afterData.put("sub_service_name",account.getSubServiceName());
         afterData.put("remarks",account.getRemarks());
         return ViewUtil.isMap(beforeMap,afterData);
     }
@@ -82,6 +83,7 @@ public class AccountEditActivityPresenter {
         afterData.put("user_id",account.getUserId());
         afterData.put("password",account.getPassword());
         afterData.put("service_index",account.getSIndex());
+        afterData.put("sub_service_name",account.getSubServiceName());
         afterData.put("remarks",account.getRemarks());
         return ViewUtil.diffMap(beforeMap,afterData);
     }

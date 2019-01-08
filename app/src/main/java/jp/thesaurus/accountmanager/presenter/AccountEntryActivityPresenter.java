@@ -26,7 +26,7 @@ public class AccountEntryActivityPresenter {
     }*/
     public void insertEntryData(Context ct){
         DBHelper dh = new DBHelper(ct);
-        dh.insertData(account.getUserId(),account.getPassword(),account.getSIndex(),account.getRemarks());
+        dh.insertData(account.getUserId(),account.getPassword(),account.getSIndex(),account.getSubServiceName(),account.getRemarks());
     }
 
 /*    public interface View{

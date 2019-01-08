@@ -47,6 +47,7 @@ public class AccountEntryActivity extends AppCompatActivity {
             Account account = new Account();
             TextView userIdView = findViewById(R.id.entry_user_id);
             TextView passwordView = findViewById(R.id.entry_password);
+            TextView subServiceNameView = findViewById(R.id.entry_remarks);
             TextView remarksView = findViewById(R.id.entry_remarks);
             TextView sindexView = findViewById(R.id.s_index);
             if(isEntryValidation(userIdView,passwordView)){
@@ -56,6 +57,7 @@ public class AccountEntryActivity extends AppCompatActivity {
             account.setUserId(userIdView.getText().toString());
             account.setPassword(passwordView.getText().toString());
             account.setSIndex(sindexView.getText().toString());
+            account.setSubServiceName(subServiceNameView.getText().toString());
             account.setRemarks(remarksView.getText().toString());
 
             entryPresenter = new AccountEntryActivityPresenter(account);

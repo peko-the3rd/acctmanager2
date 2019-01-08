@@ -18,12 +18,13 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private Map<Date, String> activities = new LinkedHashMap<>();
     static final String DB = "acct_manager.db";
-    static final int DB_VERSION = 6;
+    static final int DB_VERSION = 7;
     static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS acct (" +
             "  uid text not null PRIMARY KEY" +
             " ,user_id text not null" +
             " ,password text not null" +
             " ,service_index text" +
+            " ,sub_service_name text" +
             " ,remarks text"+
             " ,regist_date datetime" +
             " ,updata_date datetime" +
@@ -53,7 +54,7 @@ public class DBHelper extends SQLiteOpenHelper {
         if (!activities.containsKey(target)) {
             activities.put(target, target.toString());
             //SQL作成
-            String query = "SELECT uid,user_id,password,service_index,remarks FROM acct ORDER BY service_index,user_id;";
+            String query = "SELECT uid,user_id,password,service_index,sub_service_name,remarks FROM acct ORDER BY service_index,user_id;";
             //rawQueryメソッドでデータを取得
             SQLiteDatabase db = getReadableDatabase();
             try {
@@ -68,6 +69,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         map.put("user_id", cursor.getString(cursor.getColumnIndex("user_id")));
                         map.put("password", cursor.getString(cursor.getColumnIndex("password")));
                         map.put("service_index", cursor.getString(cursor.getColumnIndex("service_index")));
+                        map.put("sub_service_name", cursor.getString(cursor.getColumnIndex("sub_service_name")));
                         map.put("remarks", cursor.getString(cursor.getColumnIndex("remarks")));
                         lmap.add(map);
                     } while (cursor.moveToNext());
@@ -92,6 +94,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 put("user_id", "");
                 put("password", "");
                 put("service_index", "");
+                put("sub_service_name", "");
                 put("remarks", "");
                 put("regist_date", "");
                 put("updata_date", "");
@@ -111,6 +114,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     map.put("user_id", cursor.getString(cursor.getColumnIndex("user_id")));
                     map.put("password", cursor.getString(cursor.getColumnIndex("password")));
                     map.put("service_index", cursor.getString(cursor.getColumnIndex("service_index")));
+                    map.put("sub_service_name", cursor.getString(cursor.getColumnIndex("sub_service_name")));
                     map.put("remarks", cursor.getString(cursor.getColumnIndex("remarks")));
                     map.put("regist_date", cursor.getString(cursor.getColumnIndex("regist_date")));
                     map.put("updata_date", cursor.getString(cursor.getColumnIndex("updata_date")));
@@ -126,9 +130,10 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param user_id 更新用アカウントid
      * @param serviceIndex スピナー用index
      * @param password 更新用パスワード
+     * @param subServiceName サービスサブネーム
      * @param remarks 更新用備考
      * */
-    public void insertData(String user_id,String password,String serviceIndex,String remarks) {
+    public void insertData(String user_id,String password,String serviceIndex,String subServiceName,String remarks) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         RandGeneratUtils rgu = new RandGeneratUtils();
@@ -137,6 +142,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("user_id", user_id);
         values.put("password", password);
         values.put("service_index", serviceIndex);
+        values.put("sub_service_name", subServiceName);
         values.put("remarks", remarks);
         values.put("regist_date", convertLongToYyyymmddhhmm(nowTime));
         values.put("updata_date", convertLongToYyyymmddhhmm(nowTime));
